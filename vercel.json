@@ -13,7 +13,6 @@
     { "source": "/payment/deposit", "destination": "/payment-deposit.html" },
     { "source": "/payment/agent", "destination": "/payment-agent.html" },
     { "source": "/search", "destination": "/public/search.html" },
-    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
