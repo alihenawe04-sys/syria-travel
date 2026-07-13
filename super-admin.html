@@ -34,18 +34,19 @@
     var baseUrl = m ? m.getAttribute('content') : '';
     var s = document.createElement('script');
     s.src = baseUrl ? baseUrl + '/socket.io/socket.io.js' : '/socket.io/socket.io.js';
+    var ts = Date.now();
     s.onload = function() {
       var s2 = document.createElement('script');
-      s2.src = '/super-admin.js';
+      s2.src = '/super-admin.js?v=' + ts;
       document.body.appendChild(s2);
     };
     s.onerror = function() {
       var cdns = ['https://cdn.socket.io/4.8.1/socket.io.min.js'];
       function tryCDN(i) {
-        if (i >= cdns.length) { var s2 = document.createElement('script'); s2.src = '/super-admin.js'; document.body.appendChild(s2); return; }
+        if (i >= cdns.length) { var s2 = document.createElement('script'); s2.src = '/super-admin.js?v=' + ts; document.body.appendChild(s2); return; }
         var c = document.createElement('script');
         c.src = cdns[i];
-        c.onload = function() { var s2 = document.createElement('script'); s2.src = '/super-admin.js'; document.body.appendChild(s2); };
+        c.onload = function() { var s2 = document.createElement('script'); s2.src = '/super-admin.js?v=' + ts; document.body.appendChild(s2); };
         c.onerror = function() { tryCDN(i+1); };
         document.head.appendChild(c);
       }
