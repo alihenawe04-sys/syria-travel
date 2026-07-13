@@ -333,8 +333,8 @@ function renderHome() {
   const isMobile = window.innerWidth <= 768;
   const folder = isMobile ? '/mop' : '/lap';
   const heroImages = isMobile
-    ? ['1.png', 'download.png', '1783955261029.png', 'mixboard-image (18).png']
-    : ['2.png', 'mixboard-image (17).png', 'mixboard-image (19).png', 'mixboard-image (23).png'];
+    ? ['1.png','1783955261029.png','download.png','mixboard-image (18).png','mixboard-image (20).png','mixboard-image (21).png','1d27a238551f6ada3434bbb3e4af797b.jpg','d4545f9aa5276d50c198b2e53ccd3042.jpg','ea2bedd0047c16e110c57422a9243b64.jpg','IMG_20260713_181743.png','IMG_20260713_181815.png','IMG_20260713_181844.png','IMG_20260713_181912.png']
+    : ['2.png','mixboard-image (17).png','mixboard-image (19).png','mixboard-image (22).png','mixboard-image (23).png','906fa24e4fe68fee291279f0d4606e40.jpg','f0e78cef6cf1e5ddecfb534c7d1f123c.jpg','IMG_20260713_181940.png','IMG_20260713_182025.png','IMG_20260713_182100.png'];
   document.getElementById('app').innerHTML = `
     <section class="hero">
       <div class="hero__slides" id="hero-slides">
