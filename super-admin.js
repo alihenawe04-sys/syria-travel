@@ -1320,7 +1320,7 @@ function toggleSATheme() {
   if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+(function() {
   const theme = localStorage.getItem('syria_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', theme);
   const tb = document.getElementById('sa-theme-toggle');
@@ -1332,4 +1332,4 @@ window.addEventListener('DOMContentLoaded', () => {
   } else {
     renderSuperAdminLogin();
   }
-});
+})();

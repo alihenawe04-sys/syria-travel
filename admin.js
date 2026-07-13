@@ -2596,10 +2596,10 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-window.addEventListener('DOMContentLoaded', () => {
+(function() {
   const theme = localStorage.getItem('syria_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', theme);
   const btn = document.getElementById('admin-theme-toggle');
   if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
   if (adminToken) renderAdminDashboard(); else renderAdminLogin();
-});
+})();
