@@ -284,6 +284,7 @@ function openWhatsApp(text) {
 }
 
 function route() {
+  window.scrollTo(0, 0);
   const hash = window.location.hash || '#home';
   const app = document.getElementById('app');
   if (!app) return;
@@ -322,7 +323,6 @@ function route() {
     case '#search': renderSearch(); break;
     default: renderNotFound(); break;
   }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
   if (currentToken) loadActiveTrip().then(() => updateNavbarUI());
 }
 
