@@ -379,6 +379,10 @@ function renderHome() {
         </div>
         <button onclick="var el=document.getElementById('home-offers-section')||document.getElementById('featured-hotels-section');if(el)el.scrollIntoView({behavior:'smooth'})" style="background:linear-gradient(135deg,var(--gold-primary),var(--gold-dark));color:var(--luxury-navy);border:none;padding:12px 36px;border-radius:50px;font-weight:700;font-size:1rem;cursor:pointer;margin-top:20px;box-shadow:0 4px 20px rgba(201,169,110,0.3);transition:all var(--transition-fast);">${currentLang === 'ar' ? 'للمزيد' : 'More'}</button>
       </div>
+      <div class="scroll-indicator" onclick="document.getElementById('home-offers-section')||document.getElementById('featured-hotels-section')?.scrollIntoView({behavior:'smooth'})">
+        <span class="scroll-indicator__text">${currentLang === 'ar' ? 'اسحب للمزيد' : 'Scroll for more'}</span>
+        <span class="scroll-indicator__arrow">⌄</span>
+      </div>
     </section>
     ${homepageSections.offers_visible !== false ? `
     <section class="section container" id="home-offers-section">
