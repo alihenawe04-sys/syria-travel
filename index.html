@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syria Travel — Luxury Heritage Tourism Platform</title>
+  <meta name="description" content="Book premium tours, luxury hotels, and car rentals across Syria. Experience ancient heritage with modern comfort.">
+  <meta name="keywords" content="Syria travel, luxury hotels Damascus, Syrian tourism, heritage tours, car rental Syria">
+  <meta name="theme-color" content="#0D1625">
+  <meta name="api-url" content="">
+  <meta property="og:title" content="Syria Travel — Luxury Heritage Tourism Platform">
+  <meta property="og:description" content="Book premium tours, luxury hotels, and car rentals across Syria.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+</head>
+<body>
+  <header class="header" role="banner">
+    <div class="header__inner container">
+      <a href="#home" class="header__logo" aria-label="Syria Travel">
+        <span class="header__logo-icon">✦</span>
+        <span class="header__logo-text">Syria<span class="header__logo-accent">Travel</span></span>
+      </a>
+      <button class="header__hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="header__nav" role="navigation" aria-label="Main navigation"></nav>
+    </div>
+  </header>
+  <main id="app" class="main" role="main"></main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <h4 class="footer__heading">Syria Travel</h4>
+        <p style="font-size:0.9rem;line-height:1.8;">Premium international travel booking platform for Syrian tourism. Curated luxury hotels, guided tours, and executive car rentals.</p>
+      </div>
+      <div>
+        <h4 class="footer__heading">Contact</h4>
+        <p class="footer__text" id="footer-phone">📞 +963 951 564 210</p>
+        <p class="footer__text" id="footer-email">✉️ concierge@syria-travel.com</p>
+        <p class="footer__text">📍 Damascus, Syria</p>
+      </div>
+      <div>
+        <h4 class="footer__heading">Links</h4>
+        <a href="#about" class="footer__link">About</a>
+        <a href="#contact" class="footer__link">Contact</a>
+        <a href="#privacy" class="footer__link">Privacy Policy</a>
+        <a href="#terms" class="footer__link">Terms &amp; Conditions</a>
+        <a href="/manage-panel" class="footer__link">🔒 Admin Panel</a>
+      </div>
+      <div>
+        <h4 class="footer__heading" id="footer-inquiry-title">Inquiry</h4>
+        <form id="footer-inquiry-form" onsubmit="return handleFooterInquiry(event)" style="display:flex;flex-direction:column;gap:8px;max-width:260px;">
+          <input type="text" name="name" id="fi-name" placeholder="Your Name" required style="padding:8px 12px;border:1px solid var(--border-color);background:var(--bg);color:var(--text-main);border-radius:6px;font-size:0.85rem;">
+          <input type="tel" name="phone" id="fi-phone" placeholder="Phone / WhatsApp" style="padding:8px 12px;border:1px solid var(--border-color);background:var(--bg);color:var(--text-main);border-radius:6px;font-size:0.85rem;">
+          <textarea name="message" id="fi-msg" placeholder="Your message" required rows="2" style="padding:8px 12px;border:1px solid var(--border-color);background:var(--bg);color:var(--text-main);border-radius:6px;font-size:0.85rem;resize:vertical;"></textarea>
+          <button type="submit" id="fi-btn" style="padding:10px;background:linear-gradient(135deg,var(--gold-primary),var(--gold-dark));color:var(--luxury-navy);border:none;border-radius:6px;font-weight:600;font-size:0.85rem;cursor:pointer;">Send</button>
+        </form>
+      </div>
+      <div>
+        <h4 class="footer__heading">Payment Methods</h4>
+        <p class="footer__text" style="font-size:1.6rem;letter-spacing:8px;margin-top:8px;">
+          <span title="Visa">💳</span>
+          <span title="Mastercard">💳</span>
+          <span title="Western Union">🏦</span>
+          <span title="Bank Transfer">🏛</span>
+          <span title="USDT (Crypto)">₿</span>
+        </p>
+        <p class="footer__text" style="font-size:0.82rem;opacity:0.7;margin-top:4px;">Visa · Mastercard · Western Union · Bank Transfer · USDT</p>
+      </div>
+    </div>
+    <div class="footer__bottom container">
+      <p>&copy; 2026 Syria Travel. All Rights Reserved.</p>
+    </div>
+  </footer>
+  <a href="https://wa.me/963951564210" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+  <script src="app.js" charset="UTF-8"></script>
+</body>
+</html>

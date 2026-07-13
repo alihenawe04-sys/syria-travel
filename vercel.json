@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "name": "syria-travel-frontend",
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "framework": null,
+  "rewrites": [
+    { "source": "/manage-panel", "destination": "/admin.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/super-admin", "destination": "/super-admin.html" },
+    { "source": "/my-bookings", "destination": "/customer-panel.html" },
+    { "source": "/payment/bank-transfer", "destination": "/payment-bank-transfer.html" },
+    { "source": "/payment/deposit", "destination": "/payment-deposit.html" },
+    { "source": "/payment/agent", "destination": "/payment-agent.html" },
+    { "source": "/search", "destination": "/public/search.html" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}

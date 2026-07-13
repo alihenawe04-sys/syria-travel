@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="api-url" content="">
+<title>وكيل سفر - Syria Travel</title>
+<script>
+(function(){try{var t=localStorage.getItem('syria-travel-theme')||'dark';document.documentElement.setAttribute('data-theme',t)}catch(e){}})();
+function getQueryParam(name){var u=new URLSearchParams(window.location.search);return u.get(name)||''}
+const API_BASE=(function(){var m=document.querySelector('meta[name="api-url"]'),u=m?m.getAttribute('content'):'';if(u)return u;var s=localStorage.getItem('syria_api_url');return s||''})();
+</script>
+<style>
+:root{--gold-primary:#C9A96E;--gold-dark:#AF8B4C;--bg-dark:#05080F;--bg-card:rgba(15,23,36,0.65);--text-primary:#E8E0D0;--text-secondary:#A09880;--bg-page:#0A0F1A;--border-color:rgba(201,169,110,0.15);--shadow-color:rgba(201,169,110,0.08);--input-bg:rgba(15,23,36,0.5);--success:#2ECC71;--error:#E74C3C;}
+[data-theme="light"]{--bg-dark:#F5F0E8;--bg-card:rgba(255,255,255,0.75);--text-primary:#2C2416;--text-secondary:#6B5D44;--bg-page:#FAF7F2;--border-color:rgba(201,169,110,0.3);--shadow-color:rgba(201,169,110,0.15);--input-bg:rgba(255,255,255,0.7);}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;}
+body{background:var(--bg-page);color:var(--text-primary);min-height:100vh;line-height:1.6;transition:background 0.3s,color 0.3s;}
+.container{max-width:520px;margin:0 auto;padding:16px;}
+.header{display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid var(--border-color);margin-bottom:24px;}
+.header a{color:var(--gold-primary);text-decoration:none;font-size:20px;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.header a:hover{color:var(--gold-dark);}
+.header .logo{font-size:22px;font-weight:700;color:var(--gold-primary);margin-right:auto;letter-spacing:1px;}
+.header .logo span{font-size:18px;margin-left:6px;}
+.card{background:var(--bg-card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border-color);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 8px 32px var(--shadow-color);transition:background 0.3s,border-color 0.3s;}
+.card-title{font-size:15px;font-weight:600;color:var(--gold-primary);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.info-label{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
+.info-value{font-size:14px;font-weight:600;color:var(--text-primary);word-break:break-all;}
+.info-value.gold{color:var(--gold-primary);}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:13px;color:var(--text-secondary);margin-bottom:6px;font-weight:500;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;background:var(--input-bg);border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);font-size:14px;outline:none;transition:border-color 0.2s,background 0.3s;direction:rtl;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold-primary);}
+.form-group input::placeholder{color:var(--text-secondary);opacity:0.6;}
+.form-group select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%23C9A96E'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;padding-left:36px;}
+.form-group textarea{resize:vertical;min-height:80px;}
+.hint{font-size:11px;color:var(--text-secondary);margin-top:4px;}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.btn-primary{background:linear-gradient(135deg,var(--gold-primary),var(--gold-dark));color:#0A0F1A;box-shadow:0 4px 20px rgba(201,169,110,0.25);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,169,110,0.35);}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.spinner{width:20px;height:20px;border:2px solid rgba(10,15,26,0.2);border-top-color:#0A0F1A;border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
+.spinner.show{display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.msg{padding:14px 16px;border-radius:10px;font-size:14px;margin-bottom:16px;display:none;align-items:center;gap:10px;}
+.msg.show{display:flex;}
+.msg.success{background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.25);color:#2ECC71;}
+.msg.error{background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.25);color:#E74C3C;}
+.theme-toggle{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;border:1px solid var(--border-color);background:var(--bg-card);backdrop-filter:blur(8px);color:var(--gold-primary);font-size:18px;cursor:pointer;z-index:100;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.theme-toggle:hover{border-color:var(--gold-primary);}
+@media(max-width:480px){.container{padding:12px}.card{padding:16px}}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">◐</button>
+<div class="container">
+  <div class="header">
+    <a href="/" title="العودة إلى الرئيسية">&larr; <span style="font-size:13px;font-weight:400;">الرئيسية</span></a>
+    <div class="logo"><span>✦</span> Syria Travel</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span>🧑‍💼</span> معلومات الوكيل</div>
+    <div class="form-group">
+      <label>اسم الوكيل</label>
+      <input type="text" id="agentName" placeholder="الاسم الكامل للوكيل" />
+    </div>
+    <div class="form-group">
+      <label>رقم هاتف الوكيل</label>
+      <input type="tel" id="agentPhone" placeholder="09xx xxx xxx" />
+    </div>
+  </div>
+
+  <div class="card" id="bookingInfoCard" style="display:none;">
+    <div class="card-title"><span>📋</span> معلومات الحجز</div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">رقم الحجز</div>
+        <div class="info-value" id="agentBookingId">---</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">العميل</div>
+        <div class="info-value" id="agentCustomerName">---</div>
+      </div>
+      <div class="info-item" style="grid-column:1/-1;">
+        <div class="info-label">المبلغ الإجمالي</div>
+        <div class="info-value gold" id="agentBookingAmount">---</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span>📋</span> معلومات الدفع</div>
+    <div class="form-group">
+      <label>تأكيد الحجز</label>
+      <input type="text" id="bookingConfirm" placeholder="رقم تأكيد الحجز" />
+    </div>
+    <div class="form-group">
+      <label>طريقة الدفع</label>
+      <select id="paymentMethod">
+        <option value="">-- اختر طريقة الدفع --</option>
+        <option value="cash">نقداً / Cash</option>
+        <option value="card">بطاقة ائتمان / Credit Card</option>
+        <option value="bank_transfer">تحويل بنكي / Bank Transfer</option>
+        <option value="western_union">ويسترن يونيون / Western Union</option>
+        <option value="agent">وكيل / Agent Collection</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>ملاحظات</label>
+      <textarea id="notes" placeholder="ملاحظات إضافية حول عملية الدفع..."></textarea>
+    </div>
+  </div>
+
+  <div id="messages"></div>
+  <button class="btn btn-primary" id="submitBtn">
+    <span class="spinner" id="spinner"></span>
+    <span id="btnText">تأكيد الدفع / Confirm Payment</span>
+  </button>
+  <p style="text-align:center;margin-top:20px;font-size:11px;color:var(--text-secondary);">سيتم تحديث حالة الحفظ بعد التأكيد</p>
+</div>
+
+<script>
+(function(){
+  var bookingId=getQueryParam('booking_id')||getQueryParam('bookingId')||'';
+  var customer=getQueryParam('customer_name')||getQueryParam('customer')||'';
+  var amount=getQueryParam('amount')||getQueryParam('total')||'';
+  if(bookingId){
+    var el=document.getElementById('bookingConfirm');
+    if(el){
+      el.value=bookingId;
+      el.placeholder='رقم الحزب: '+bookingId;
+    }
+    var infoCard=document.getElementById('bookingInfoCard');
+    if(infoCard){
+      infoCard.style.display='block';
+      document.getElementById('agentBookingId').textContent=bookingId;
+      document.getElementById('agentCustomerName').textContent=customer||'---';
+      document.getElementById('agentBookingAmount').textContent=amount+' USD'+(amount==='0'?'':'');
+    }
+  }
+})();
+
+(function(){
+  var toggle=document.getElementById('themeToggle');
+  toggle.addEventListener('click',function(){
+    var html=document.documentElement;
+    var cur=html.getAttribute('data-theme')||'dark';
+    var next=cur==='dark'?'light':'dark';
+    html.setAttribute('data-theme',next);
+    try{localStorage.setItem('syria-travel-theme',next);}catch(e){}
+  });
+})();
+
+(function(){
+  var btn=document.getElementById('submitBtn');
+  var spinner=document.getElementById('spinner');
+  var btnText=document.getElementById('btnText');
+  var msgBox=document.getElementById('messages');
+
+  function showMsg(type,text){
+    msgBox.innerHTML='<div class="msg show '+type+'"><span>'+(type==='success'?'✓':'✗')+'</span>'+text+'</div>';
+    msgBox.scrollIntoView({behavior:'smooth'});
+  }
+
+  btn.addEventListener('click',function(){
+    var agentName=document.getElementById('agentName').value.trim();
+    var agentPhone=document.getElementById('agentPhone').value.trim();
+    var bookingConfirm=document.getElementById('bookingConfirm').value.trim();
+    var paymentMethod=document.getElementById('paymentMethod').value;
+    var notes=document.getElementById('notes').value.trim();
+    if(!agentName){showMsg('error','يرجى إدخال اسم الوكيل');return;}
+    if(!agentPhone){showMsg('error','يرجى إدخال رقم هاتف الوكيل');return;}
+    if(!bookingConfirm){showMsg('error','يرجى إدخال رقم تأكيد الحجز');return;}
+    if(!paymentMethod){showMsg('error','يرجى اختيار طريقة الدفع');return;}
+    btn.disabled=true;spinner.classList.add('show');btnText.textContent='جاري الإرسال...';
+
+    var body=JSON.stringify({
+      booking_id:bookingConfirm,
+      customer_name:getQueryParam('customer_name')||getQueryParam('customer')||'',
+      amount:getQueryParam('amount')||getQueryParam('total')||'',
+      agent_name:agentName,
+      agent_phone:agentPhone,
+      payment_method:paymentMethod,
+      notes:notes
+    });
+
+    var token = '';
+    try{token=localStorage.getItem('syria_token')||'';}catch(e){}
+    var hdrs = {'Content-Type':'application/json'};
+    if(token) hdrs['Authorization'] = 'Bearer ' + token;
+    fetch(API_BASE+'/api/payments/agent',{method:'POST',headers:hdrs,body:body})
+    .then(function(r){if(!r.ok)throw new Error('Network error');return r.json();})
+    .then(function(data){
+      spinner.classList.remove('show');btnText.textContent='تم التأكيد ✓';
+      showMsg('success','تم تأكيد الدفع عن طريق الوكيل بنجاح! سيتم توجيهك إلى الصفحة الرئيسية...');
+      setTimeout(function(){window.location.href='/';},3000);
+    })
+    .catch(function(err){
+      spinner.classList.remove('show');btn.disabled=false;btnText.textContent='تأكيد الدفع / Confirm Payment';
+      showMsg('error','حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+    });
+  });
+})();
+</script>
+</body>
+</html>

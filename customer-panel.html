@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="api-url" content="">
+<title>لوحة التحكم - حجوزاتي</title>
+<style>
+:root {
+  --gold-primary: #C9A96E;
+  --gold-light: #E8D5A3;
+  --gold-dark: #A8883E;
+  --gold-glow: rgba(201, 169, 110, 0.3);
+  --bg-dark: #05080F;
+  --bg-card: #0C1220;
+  --bg-card-hover: #111827;
+  --bg-elevated: #1A2235;
+  --text-primary: #F0EDE8;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  --border-color: rgba(201, 169, 110, 0.15);
+  --border-glow: rgba(201, 169, 110, 0.3);
+  --success: #10B981;
+  --danger: #EF4444;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+  --teal: #14B8A6;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --font: 'Segoe UI', Tahoma, sans-serif;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg-dark: #F8F6F1;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F3F0EA;
+  --bg-elevated: #EDE8E0;
+  --text-primary: #1F2937;
+  --text-secondary: #4B5563;
+  --text-muted: #9CA3AF;
+  --border-color: rgba(201, 169, 110, 0.3);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.header {
+  background: linear-gradient(135deg, rgba(5,8,15,0.98), rgba(12,18,32,0.98));
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="light"] .header {
+  background: linear-gradient(135deg, rgba(248,246,241,0.98), rgba(255,255,255,0.98));
+}
+
+.header-left { display: flex; align-items: center; gap: 16px; }
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+.back-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.back-link:hover { color: var(--gold-primary); }
+
+.header-title {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-icon {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  font-size: 18px;
+}
+
+.btn-icon:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  transition: var(--transition);
+  font-family: var(--font);
+}
+
+.btn-logout:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* Auth */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 24px 16px;
+}
+
+.auth-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow);
+}
+
+.auth-box h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 24px;
+  color: var(--text-primary);
+}
+
+.auth-box .subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: var(--transition);
+  font-family: var(--font);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+.form-group input::placeholder { color: var(--text-muted); }
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #05080F;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 30px var(--gold-glow);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error-msg {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--danger);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.error-msg.show { display: block; }
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  white-space: nowrap;
+  font-family: var(--font);
+}
+
+.tab:hover { color: var(--text-primary); }
+
+.tab.active {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  color: #05080F;
+  font-weight: 600;
+}
+
+.tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 0 8px;
+  font-size: 11px;
+  margin-right: 6px;
+  height: 20px;
+  min-width: 20px;
+}
+
+.tab.active .tab-count { background: rgba(0,0,0,0.15); }
+
+.tab-content { display: none; }
+
+.tab-content.active { display: block; }
+
+/* Tables */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+thead {
+  background: var(--bg-elevated);
+}
+
+th {
+  padding: 14px 16px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+td {
+  padding: 14px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+tr:last-child td { border-bottom: none; }
+
+tr:hover td { background: var(--bg-card-hover); }
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.badge-new { background: rgba(59, 130, 246, 0.15); color: var(--info); }
+.badge-confirmed { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+.badge-pending { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+.badge-cancelled { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+.badge-completed { background: rgba(20, 184, 166, 0.15); color: var(--teal); }
+.badge-paid { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+.badge-failed, .badge-rejected { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+.badge-refunded { background: rgba(139, 92, 246, 0.15); color: #8B5CF6; }
+.badge-pending_verification { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+
+.btn-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  font-family: var(--font);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  border: none;
+  color: #05080F;
+}
+
+.btn-gold:hover { box-shadow: 0 0 20px var(--gold-glow); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover { border-color: var(--gold-primary); color: var(--gold-primary); }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+.empty-state .icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--text-secondary);
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--gold-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* User info */
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #05080F;
+  flex-shrink: 0;
+}
+
+.user-info h3 { font-size: 16px; margin-bottom: 2px; }
+
+.user-info p { font-size: 13px; color: var(--text-secondary); }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .header { padding: 12px 16px; }
+  .header-title { font-size: 16px; }
+  .container { padding: 16px 12px; }
+  .auth-box { padding: 24px 20px; }
+  .tabs { gap: 2px; padding: 3px; }
+  .tab { padding: 10px 12px; font-size: 12px; }
+  th, td { padding: 10px 12px; font-size: 12px; }
+  .user-bar { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .tab { padding: 8px 10px; font-size: 11px; }
+  th, td { padding: 8px 10px; font-size: 11px; }
+  .badge { font-size: 10px; padding: 3px 8px; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="header">
+    <div class="header-left">
+      <a href="/" class="back-link">&#8594; العودة إلى الرئيسية</a>
+    </div>
+    <div class="header-title">لوحة التحكم</div>
+    <div class="header-right">
+      <button class="btn-icon" id="themeToggle" title="تغيير المظهر">&#9790;</button>
+      <button class="btn-logout" id="logoutBtn" style="display:none">تسجيل الخروج</button>
+    </div>
+  </div>
+
+  <!-- Login -->
+  <div id="authSection" class="auth-container">
+    <div class="auth-box">
+      <h2>تسجيل الدخول</h2>
+      <p class="subtitle">قم بتسجيل الدخول لعرض حجوزاتك وفواتيرك</p>
+      <div class="error-msg" id="loginError"></div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="loginEmail" placeholder="example@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <input type="password" id="loginPassword" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+        </div>
+        <button type="submit" class="btn-primary" id="loginBtn">تسجيل الدخول</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div id="panelSection" style="display:none">
+    <div class="container">
+      <div class="user-bar" id="userBar">
+        <div class="user-avatar" id="userAvatar">م</div>
+        <div class="user-info">
+          <h3 id="userName">-</h3>
+          <p id="userEmail">-</p>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="bookings">حجوزاتي <span class="tab-count" id="bookingsCount">0</span></button>
+        <button class="tab" data-tab="invoices">فواتيري <span class="tab-count" id="invoicesCount">0</span></button>
+        <button class="tab" data-tab="payments">مدفوعاتي <span class="tab-count" id="paymentsCount">0</span></button>
+      </div>
+
+      <!-- Bookings -->
+      <div class="tab-content active" id="tabBookings">
+        <div id="bookingsContent"></div>
+      </div>
+
+      <!-- Invoices -->
+      <div class="tab-content" id="tabInvoices">
+        <div id="invoicesContent"></div>
+      </div>
+
+      <!-- Payments -->
+      <div class="tab-content" id="tabPayments">
+        <div id="paymentsContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOKEN_KEY = 'syria_token';
+const THEME_KEY = 'syria_theme';
+const API_BASE = '';
+
+let userData = null;
+
+// Theme
+function getTheme() {
+  return localStorage.getItem(THEME_KEY) || 'dark';
+}
+
+function setTheme(theme) {
+  localStorage.setItem(THEME_KEY, theme);
+  document.documentElement.setAttribute('data-theme', theme);
+}
+
+function toggleTheme() {
+  setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTheme(getTheme());
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  init();
+});
+
+async function init() {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (token) {
+    try {
+      const res = await fetch(API_BASE + '/api/auth/me', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        userData = data.user;
+        showPanel();
+        return;
+      }
+    } catch (e) {}
+    localStorage.removeItem(TOKEN_KEY);
+  }
+  showAuth();
+}
+
+function showAuth() {
+  document.getElementById('authSection').style.display = 'flex';
+  document.getElementById('panelSection').style.display = 'none';
+  document.getElementById('logoutBtn').style.display = 'none';
+}
+
+function showPanel() {
+  document.getElementById('authSection').style.display = 'none';
+  document.getElementById('panelSection').style.display = 'block';
+  document.getElementById('logoutBtn').style.display = 'inline-flex';
+  document.getElementById('userName').textContent = userData.name || userData.email;
+  document.getElementById('userEmail').textContent = userData.email;
+  document.getElementById('userAvatar').textContent = (userData.name || userData.email || 'م').charAt(0);
+  loadAll();
+}
+
+// Login
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginBtn');
+  const errorEl = document.getElementById('loginError');
+
+  errorEl.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = 'جاري تسجيل الدخول...';
+
+  try {
+    const res = await fetch(API_BASE + '/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      errorEl.textContent = data.error || 'فشل تسجيل الدخول';
+      errorEl.classList.add('show');
+      return;
+    }
+    localStorage.setItem(TOKEN_KEY, data.token);
+    userData = data.user;
+    showPanel();
+  } catch (err) {
+    errorEl.textContent = 'خطأ في الاتصال بالخادم';
+    errorEl.classList.add('show');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'تسجيل الدخول';
+  }
+});
+
+// Logout
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem(TOKEN_KEY);
+  userData = null;
+  showAuth();
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+});
+
+// Tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1)).classList.add('active');
+  });
+});
+
+async function loadAll() {
+  await Promise.all([loadBookings(), loadInvoices(), loadPayments()]);
+}
+
+// Status helpers
+function statusBadge(status) {
+  const cls = (status || '').toLowerCase().replace(/\s+/g, '_');
+  const labels = {
+    'new': 'جديد', 'confirmed': 'مؤكد', 'pending': 'قيد الانتظار',
+    'cancelled': 'ملغي', 'completed': 'مكتمل', 'paid': 'مدفوع',
+    'failed': 'فشل', 'refunded': 'مسترجع', 'rejected': 'مرفوض',
+    'pending_verification': 'قيد التحقق', 'processing': 'قيد المعالجة'
+  };
+  return '<span class="badge badge-' + cls + '">' + (labels[cls] || status) + '</span>';
+}
+
+function formatDate(d) {
+  if (!d) return '-';
+  const dt = new Date(d);
+  return dt.toLocaleDateString('ar-SA', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function formatCurrency(n) {
+  return Number(n || 0).toLocaleString('ar-SA') + ' $';
+}
+
+// Bookings
+async function loadBookings() {
+  const el = document.getElementById('bookingsContent');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل الحجوزات...</div>';
+  try {
+    const res = await fetch(API_BASE + '/api/my/bookings', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN_KEY) }
+    });
+    if (!res.ok) throw new Error('Failed');
+    const data = await res.json();
+    const bookings = data.bookings || [];
+    document.getElementById('bookingsCount').textContent = bookings.length;
+
+    if (!bookings.length) {
+      el.innerHTML = '<div class="empty-state"><div class="icon">&#128203;</div><h3>لا توجد حجوزات</h3><p>لم تقم بأي حجز بعد</p></div>';
+      return;
+    }
+
+    let html = '<div class="table-responsive"><table><thead><tr><th>رقم الحجز</th><th>الخدمة</th><th>النوع</th><th>التواريخ</th><th>المبلغ</th><th>طريقة الدفع</th><th>الحالة</th><th></th></tr></thead><tbody>';
+    bookings.forEach(b => {
+      const dates = [];
+      if (b.check_in) dates.push('من ' + formatDate(b.check_in));
+      if (b.check_out) dates.push('إلى ' + formatDate(b.check_out));
+      const dateStr = dates.join(' ') || '-';
+      let actions = '';
+      if (b.status === 'pending_verification' || b.payment_status === 'pending_verification') {
+        actions = '<a href="/payment/bank-transfer?booking_id=' + b.id + '" class="btn-small btn-gold">رفع إيصال</a>';
+      }
+      html += '<tr><td><strong>' + (b.booking_ref || '-') + '</strong></td><td>' + (b.item_name || '-') + '</td><td>' + (b.booking_type || '-') + '</td><td>' + dateStr + '</td><td>' + formatCurrency(b.total) + '</td><td>' + (b.payment_method || '-') + '</td><td>' + statusBadge(b.status || b.payment_status) + '</td><td>' + actions + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    el.innerHTML = html;
+  } catch (err) {
+    el.innerHTML = '<div class="empty-state"><h3>خطأ في تحميل الحجوزات</h3></div>';
+  }
+}
+
+// Invoices
+async function loadInvoices() {
+  const el = document.getElementById('invoicesContent');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل الفواتير...</div>';
+  try {
+    const res = await fetch(API_BASE + '/api/my/invoices', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN_KEY) }
+    });
+    if (!res.ok) throw new Error('Failed');
+    const data = await res.json();
+    const invoices = data.invoices || [];
+    document.getElementById('invoicesCount').textContent = invoices.length;
+
+    if (!invoices.length) {
+      el.innerHTML = '<div class="empty-state"><div class="icon">&#128196;</div><h3>لا توجد فواتير</h3><p>لم يتم إصدار أي فاتورة بعد</p></div>';
+      return;
+    }
+
+    let html = '<div class="table-responsive"><table><thead><tr><th>رقم الفاتورة</th><th>رقم الحجز</th><th>المبلغ</th><th>الحالة</th><th>التاريخ</th><th></th></tr></thead><tbody>';
+    invoices.forEach(inv => {
+      const btnHtml = '<a href="/api/admin/invoices/' + inv.id + '/pdf" class="btn-small btn-ghost" target="_blank">&#128229; تحميل</a>';
+      html += '<tr><td><strong>' + (inv.invoice_number || '-') + '</strong></td><td>' + (inv.booking_ref || '-') + '</td><td>' + formatCurrency(inv.amount) + '</td><td>' + statusBadge(inv.status) + '</td><td>' + formatDate(inv.created_at) + '</td><td>' + btnHtml + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    el.innerHTML = html;
+  } catch (err) {
+    el.innerHTML = '<div class="empty-state"><h3>خطأ في تحميل الفواتير</h3></div>';
+  }
+}
+
+// Payments
+async function loadPayments() {
+  const el = document.getElementById('paymentsContent');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل المدفوعات...</div>';
+  try {
+    const res = await fetch(API_BASE + '/api/my/payments', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN_KEY) }
+    });
+    if (!res.ok) throw new Error('Failed');
+    const data = await res.json();
+    const payments = data.payments || [];
+    document.getElementById('paymentsCount').textContent = payments.length;
+
+    if (!payments.length) {
+      el.innerHTML = '<div class="empty-state"><div class="icon">&#128176;</div><h3>لا توجد مدفوعات</h3><p>لم تقم بأي عملية دفع بعد</p></div>';
+      return;
+    }
+
+    let html = '<div class="table-responsive"><table><thead><tr><th>رقم العملية</th><th>المبلغ</th><th>طريقة الدفع</th><th>الحالة</th><th>التاريخ</th></tr></thead><tbody>';
+    payments.forEach(p => {
+      html += '<tr><td><strong>#' + p.id + '</strong></td><td>' + formatCurrency(p.amount) + '</td><td>' + (p.payment_method || '-') + '</td><td>' + statusBadge(p.status) + '</td><td>' + formatDate(p.created_at) + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    el.innerHTML = html;
+  } catch (err) {
+    el.innerHTML = '<div class="empty-state"><h3>خطأ في تحميل المدفوعات</h3></div>';
+  }
+}
+</script>
+</body>
+</html>

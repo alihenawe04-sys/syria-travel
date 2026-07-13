@@ -1,0 +1,397 @@
+/* ==========================================================================
+   SYRIA TRAVEL & TOURISM OFFICE - PRESTIGE GLOBAL DESIGN SYSTEM
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap');
+
+:root {
+  /* لوحة الألوان السينمائية الفاخرة */
+  --gold-primary: #C9A96E;
+  --gold-dark: #AF8B4C;
+  --gold-light: #E0CFA9;
+  --luxury-navy: #0D1625;
+  --luxury-indigo: #152238;
+  --luxury-slate: #1C2E4A;
+  --luxury-cream: #FAF6F0;
+  --bg-dark: #05080F;
+  --bg-card-dark: rgba(15, 23, 36, 0.65);
+  --border-light: rgba(201, 169, 110, 0.25);
+  --border-dark: rgba(201, 169, 110, 0.12);
+  --text-primary-light: #121A26;
+  --text-secondary-light: #526073;
+  --text-primary-dark: #EDF2F7;
+  --text-secondary-dark: #A0AEC0;
+  --accent-gold: #D4AF37;
+  --success: #10B981;
+  --danger: #EF4444;
+  --warning: #F59E0B;
+  
+  /* المتغيرات الهيكلية والحركة */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;
+  --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* إعدادات القالب الافتراضي (الداكن) */
+  --bg: var(--bg-dark);
+  --bg-card: var(--bg-card-dark);
+  --bg-card-hover: rgba(22, 34, 52, 0.85);
+  --text-main: var(--text-primary-dark);
+  --text-muted: var(--text-secondary-dark);
+  --border-color: var(--border-dark);
+  --glass-bg: rgba(7, 11, 17, 0.65);
+  --glass-border: rgba(201, 169, 110, 0.15);
+  --glass-blur: 24px;
+  --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --shadow-md: 0 12px 30px -5px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 24px 48px -10px rgba(0, 0, 0, 0.5);
+  
+  /* نقوش معمارية مستوحاة من أعمدة تدمر والبيوت الدمشقية العريقة */
+  --architecture-pattern: radial-gradient(circle at 50% 50%, rgba(201, 169, 110, 0.03) 1px, transparent 1px), 
+                          linear-gradient(to right, rgba(201, 169, 110, 0.01) 1px, transparent 1px);
+  --architecture-size: 40px 40px, 20px 20px;
+}
+
+/* إعدادات القالب المضيء (مستوحى من حجر دمشق القديم ورمال تدمر الدافئة) */
+[data-theme="light"] {
+  --bg: #F9F7F2;
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-card-hover: rgba(253, 251, 247, 0.95);
+  --text-main: var(--text-primary-light);
+  --text-muted: var(--text-secondary-light);
+  --border-color: var(--border-light);
+  --glass-bg: rgba(250, 246, 240, 0.75);
+  --glass-border: rgba(201, 169, 110, 0.3);
+  --shadow-md: 0 12px 30px -5px rgba(175, 139, 76, 0.1);
+  --shadow-lg: 0 24px 48px -10px rgba(175, 139, 76, 0.15);
+  --architecture-pattern: radial-gradient(circle at 50% 50%, rgba(175, 139, 76, 0.04) 1px, transparent 1px);
+}
+
+/* ==========================================================================
+   BASE & RESET SYSTEM
+   ========================================================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  background-image: var(--architecture-pattern);
+  background-size: var(--architecture-size);
+  color: var(--text-main);
+  transition: background var(--transition-smooth), color var(--transition-smooth);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+[dir="rtl"] body { font-family: 'Cairo', var(--font-sans); }
+
+.container { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+.loading-text { text-align: center; padding: 60px; font-family: var(--font-display); font-style: italic; color: var(--gold-primary); }
+
+/* ==========================================================================
+   NAVIGATION BAR (شريط التنقل الزجاجي الذكي)
+   ========================================================================== */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+  transition: padding var(--transition-smooth), background var(--transition-smooth), box-shadow var(--transition-smooth);
+  padding: 8px 0;
+}
+
+.header--shrink {
+  padding: 0px 0;
+  box-shadow: var(--shadow-md);
+  background: rgba(7, 11, 17, 0.95);
+}
+[data-theme="light"] .header--shrink { background: rgba(249, 247, 242, 0.98); }
+
+.header__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+.header__logo { display: flex; flex-direction: column; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--gold-primary); }
+.header__logo-accent { color: var(--text-main); font-weight: 300; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+
+.header__nav { display: flex; align-items: center; gap: 8px; }
+.nav__link { 
+  text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; padding: 10px 16px; 
+  border-radius: var(--radius-sm); transition: all var(--transition-fast); position: relative; 
+}
+.nav__link:hover, .nav__link.active { color: var(--gold-primary); }
+
+.nav__link::after {
+  content: ''; position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px;
+  background: var(--gold-primary); transform: scaleX(0); transition: transform var(--transition-smooth);
+}
+.nav__link:hover::after, .nav__link.active::after { transform: scaleX(1); }
+
+.nav__link--auth { 
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%); 
+  color: var(--luxury-navy) !important; font-weight: 600; box-shadow: 0 4px 15px rgba(201,169,110,0.2);
+}
+.nav__link--auth:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,169,110,0.4); }
+
+.nav__link--search {
+  background: var(--gold-primary); color: var(--luxury-navy) !important; font-weight: 700;
+  border-radius: 8px; padding: 8px 18px; box-shadow: 0 2px 10px rgba(201,169,110,0.3);
+  position: static !important; cursor: pointer;
+}
+.nav__link--search::after { display: none !important; }
+.nav__link--search:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(201,169,110,0.5); }
+
+.header__hamburger { display: none; background: none; border: none; font-size: 1.8rem; color: var(--text-main); cursor: pointer; }
+
+/* أزرار التحكم اللمسية للغات والثيم */
+.theme-toggle, .lang-toggle { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 0.85rem; transition: all var(--transition-fast); }
+.theme-toggle { width: 42px; height: 42px; border-radius: 50%; padding: 0; }
+.theme-toggle:hover, .lang-toggle:hover { border-color: var(--gold-primary); color: var(--gold-primary); background: rgba(201, 169, 110, 0.05); }
+
+/* ==========================================================================
+   HERO BANNER (الواجهة الرئيسية السينمائية)
+   ========================================================================== */
+.hero { position: relative; min-height: 75vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #02050a; }
+.hero__slides { position: absolute; inset: 0; z-index: 1; }
+.hero__slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; animation: heroFade 20s infinite; }
+.hero__slide:nth-child(1) { animation-delay: 0s; }
+.hero__slide:nth-child(2) { animation-delay: 5s; }
+.hero__slide:nth-child(3) { animation-delay: 10s; }
+.hero__slide:nth-child(4) { animation-delay: 15s; }
+@keyframes heroFade {
+  0% { opacity: 0; transform: scale(1.08); }
+  2.5% { opacity: 1; transform: scale(1); }
+  22.5% { opacity: 1; transform: scale(1); }
+  25% { opacity: 0; transform: scale(1.03); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+.hero__overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,8,15,0.4) 0%, rgba(5,8,15,0.7) 60%, rgba(5,8,15,1) 100%); z-index: 2; }
+[data-theme="light"] .hero__overlay { background: linear-gradient(to bottom, rgba(249,247,242,0.3) 0%, rgba(249,247,242,0.6) 60%, rgba(249,247,242,1) 100%); }
+
+.hero__content { position: relative; z-index: 3; text-align: center; max-width: 950px; padding: 80px 24px 40px; }
+.hero__title { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 800; color: var(--gold-primary); line-height: 1.15; margin-bottom: 24px; text-shadow: 0 4px 20px rgba(0,0,0,0.6); }
+[data-theme="light"] .hero__title { color: var(--gold-dark); text-shadow: none; }
+.hero__subtitle { font-size: clamp(1rem, 2vw, 1.3rem); color: var(--gold-primary); max-width: 750px; margin: 0 auto 48px; line-height: 1.7; font-weight: 300; }
+[data-theme="light"] .hero__subtitle { color: var(--gold-dark); }
+
+.hero__stats { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.hero__stat-card { text-align: center; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); padding: 20px 36px; border-radius: var(--radius-md); min-width: 160px; }
+[data-theme="light"] .hero__stat-card { background: rgba(255,255,255,0.8); border: 1px solid rgba(201,169,110,0.2); }
+.hero__stat-value { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--gold-primary); display: block; }
+.hero__stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+/* ==========================================================================
+   HERO LOGIN PANEL (لوحة تسجيل الدخول الفاخرة)
+   ========================================================================== */
+.hero-login { margin: 24px auto 0; max-width: 520px; background: rgba(20,20,20,0.35); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.3); border-radius: 24px; padding: 28px 32px; box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 40px rgba(212,175,55,0.08), inset 0 1px 0 rgba(255,255,255,0.06); text-align: center; animation: heroLoginFade 0.8s ease-out; position: relative; }
+.hero-login::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent); }
+@keyframes heroLoginFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+.hero-login__icon { font-size: 2.2rem; color: #D4AF37; display: block; margin-bottom: 8px; }
+.hero-login__title { font-family: var(--font-display); font-size: 1.6rem; color: #FFFFFF; margin-bottom: 6px; }
+.hero-login__subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 28px; line-height: 1.5; }
+.hero-login__field { position: relative; margin-bottom: 16px; display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; transition: border var(--transition-fast), box-shadow var(--transition-fast); }
+.hero-login__field:focus-within { border-color: #D4AF37; box-shadow: 0 0 0 3px rgba(212,175,55,0.1); }
+.hero-login__input-icon { flex-shrink: 0; width: 44px; text-align: center; font-size: 1rem; color: rgba(255,255,255,0.4); }
+.hero-login__input { flex: 1; background: none; border: none; padding: 14px 12px 14px 0; color: #FFFFFF; font-family: var(--font-sans); font-size: 0.9rem; outline: none; }
+.hero-login__input::placeholder { color: rgba(255,255,255,0.3); }
+.hero-login__select-cc { flex: 0 0 auto; width: 130px; padding: 14px 4px 14px 0; background: none; border: none; color: #fff; outline: none; font-size: 0.85rem; cursor: pointer; }
+.hero-login__select-cc option { background: #1a1a2e; color: #fff; }
+.hero-login__input-phone { flex: 1; }
+.hero-login__pwd-toggle { flex-shrink: 0; background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1rem; padding: 0 14px; cursor: pointer; transition: color var(--transition-fast); }
+.hero-login__pwd-toggle:hover { color: #D4AF37; }
+.hero-login__options { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 24px; font-size: 0.82rem; }
+.hero-login__remember { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.65); cursor: pointer; }
+.hero-login__remember input[type="checkbox"] { accent-color: #D4AF37; width: 16px; height: 16px; }
+.hero-login__forgot { color: rgba(212,175,55,0.8); text-decoration: none; transition: color var(--transition-fast); }
+.hero-login__forgot:hover { color: #D4AF37; text-decoration: underline; }
+.hero-login__btn { display: block; width: 100%; padding: 14px; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all var(--transition-fast); font-family: var(--font-sans); }
+.hero-login__btn--primary { background: linear-gradient(135deg, #D4AF37, #B8860B); color: #fff; border: none; box-shadow: 0 4px 15px rgba(212,175,55,0.25); margin-bottom: 12px; }
+.hero-login__btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,175,55,0.4); }
+.hero-login__btn--primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.hero-login__btn--secondary { background: transparent; color: #D4AF37; border: 1px solid rgba(212,175,55,0.4); }
+.hero-login__btn--secondary:hover { background: rgba(212,175,55,0.08); border-color: #D4AF37; }
+[data-theme="light"] .hero-login { background: rgba(255,255,255,0.6); backdrop-filter: blur(20px); border-color: rgba(212,175,55,0.25); }
+[data-theme="light"] .hero-login__title { color: var(--luxury-navy); }
+[data-theme="light"] .hero-login__subtitle { color: var(--text-secondary-light); }
+[data-theme="light"] .hero-login__field { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
+[data-theme="light"] .hero-login__input { color: var(--text-primary-light); }
+[data-theme="light"] .hero-login__input::placeholder { color: rgba(0,0,0,0.25); }
+[data-theme="light"] .hero-login__input-icon { color: rgba(0,0,0,0.3); }
+[data-theme="light"] .hero-login__pwd-toggle { color: rgba(0,0,0,0.3); }
+[data-theme="light"] .hero-login__remember { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .hero-login__select-cc { color: var(--text-primary-light); }
+[data-theme="light"] .hero-login__select-cc option { background: #fff; color: var(--text-primary-light); }
+
+/* ==========================================================================
+   COMPONENTS GRID & CARDS (عناصر العرض الفاخرة المرتفعة)
+   ========================================================================== */
+.section { padding: 80px 0; }
+.reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
+
+.section__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 24px; }
+.section__title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; color: var(--text-main); }
+.section__subtitle { font-size: 0.9rem; color: var(--text-muted); margin-top: 6px; }
+
+.grid { display: grid; gap: 32px; }
+.grid--auto { grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); }
+
+/* تصميم بطاقات عرض الفنادق والرحلات (Glassmorphism UI) */
+.card { 
+  background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); 
+  overflow: hidden; cursor: pointer; transition: all var(--transition-smooth); display: flex; flex-direction: column; position: relative;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.card:hover { transform: translateY(-8px); border-color: rgba(201, 169, 110, 0.3); box-shadow: var(--shadow-lg); }
+
+.card__image { height: 240px; background-size: cover; background-position: center; position: relative; overflow: hidden; }
+.card__image::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%); }
+.card__badge { position: absolute; top: 16px; right: 16px; background: rgba(13, 22, 37, 0.85); color: var(--gold-primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(201,169,110,0.2); }
+[dir="rtl"] .card__badge { right: auto; left: 16px; }
+
+.card__body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+.card__title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-main); }
+.card__text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card__meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color); font-size: 0.85rem; }
+.card__price { font-weight: 600; color: var(--gold-primary); font-size: 1.1rem; }
+.card__price small { color: var(--text-muted); font-size: 0.75rem; }
+
+/* ==========================================================================
+   BUTTONS (أنظمة الأزرار بالتأثيرات المضيئة)
+   ========================================================================== */
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; font-size: 0.88rem; font-weight: 600; text-decoration: none; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all var(--transition-fast); }
+.btn--primary { background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%); color: var(--luxury-navy); box-shadow: 0 4px 12px rgba(175,139,76,0.2); }
+.btn--primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(175,139,76,0.35); }
+.btn--secondary { background: transparent; color: var(--gold-primary); border: 1px solid var(--gold-primary); }
+.btn--secondary:hover { background: rgba(201, 169, 110, 0.05); transform: translateY(-1px); }
+.btn--sm { padding: 8px 16px; font-size: 0.8rem; }
+
+/* ==========================================================================
+   DETAILS PAGE LAYOUT (صفحة التفاصيل الشاملة للأجنحة والغرف)
+   ========================================================================== */
+.detail__hero { position: relative; height: 45vh; min-height: 350px; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 40px; box-shadow: var(--shadow-lg); }
+.detail__hero-img { width: 100%; height: 100%; object-fit: cover; }
+.detail__hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%); }
+.detail__hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; z-index: 2; }
+.detail__star-rating { color: var(--accent-gold); margin-bottom: 8px; letter-spacing: 2px; }
+
+.detail-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+.detail-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+.detail-card h2 { font-family: var(--font-display); color: var(--text-main); margin-bottom: 16px; font-size: 1.6rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+
+.amenity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 20px; }
+.amenity-item { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(201,169,110,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.85rem; }
+.amenity-icon { color: var(--gold-primary); font-weight: bold; }
+
+/* بطاقات الغرف والأجنحة التراثية */
+.room-card { display: flex; background: rgba(201,169,110,0.01); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 20px; transition: all var(--transition-smooth); }
+.room-card:hover { transform: translateX(4px); border-color: rgba(201, 169, 110, 0.25); background: var(--bg-card-hover); }
+[dir="rtl"] .room-card:hover { transform: translateX(-4px); }
+.room-card__img { width: 220px; object-fit: cover; }
+.room-card__info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.room-card__specs { display: flex; gap: 16px; margin-top: 10px; font-size: 0.8rem; color: var(--text-muted); }
+
+/* معرض صور الوجهات السياحية */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+.gallery__item { position: relative; border-radius: var(--radius-sm); overflow: hidden; height: 140px; cursor: pointer; }
+.gallery__img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-smooth); }
+.gallery__item:hover class .gallery__img { transform: scale(1.05); }
+
+/* ==========================================================================
+   SIDEBAR & FORMS (قوائم الحجز الجانبية المدعومة بالواتساب)
+   ========================================================================== */
+.booking-sidebar { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; box-shadow: var(--shadow-md); position: sticky; top: 110px; }
+.booking-form__group { margin-bottom: 16px; }
+.booking-form__label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+.booking-form__input { width: 100%; padding: 12px; background: rgba(201,169,110,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-main); font-family: var(--font-sans); font-size: 0.9rem; transition: border var(--transition-fast); }
+.booking-form__input:focus { outline: none; border-color: var(--gold-primary); background: rgba(201,169,110,0.05); }
+
+/* Fix native select/option visibility for dark theme */
+select, select.booking-form__input, .booking-form select { background: var(--luxury-navy); color: var(--text-main); }
+select option { background: var(--luxury-navy); color: var(--text-main); }
+[data-theme="light"] select, [data-theme="light"] select.booking-form__input, [data-theme="light"] .booking-form select { background: #fff; color: var(--text-primary-light); }
+[data-theme="light"] select option { background: #fff; color: var(--text-primary-light); }
+
+/* ==========================================================================
+   ROOM IMAGE GALLERY (معرض صور الغرف)
+   ========================================================================== */
+.rg { margin-top: 10px; }
+.rg__main { position: relative; display: flex; align-items: center; justify-content: center; background: #000; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 16 / 9; max-height: 500px; }
+.rg__wrap { flex: 1; display: flex; align-items: center; justify-content: center; height: 100%; overflow: hidden; }
+.rg__img { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.3s ease; display: block; }
+.rg__img[src=""] { opacity: 0; }
+.rg__arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 48px; height: 48px; border: none; background: rgba(0,0,0,0.5); color: #FFF; font-size: 2rem; cursor: pointer; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s; line-height: 1; padding: 0; }
+.rg__arrow:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.1); }
+.rg__arrow--prev { left: 16px; }
+.rg__arrow--next { right: 16px; }
+[dir="rtl"] .rg__arrow--prev { left: auto; right: 16px; }
+[dir="rtl"] .rg__arrow--next { right: auto; left: 16px; }
+.rg__counter { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); color: #FFF; padding: 4px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 500; backdrop-filter: blur(4px); z-index: 10; }
+.rg__fs { position: absolute; top: 16px; right: 16px; z-index: 10; width: 40px; height: 40px; border: none; background: rgba(0,0,0,0.5); color: #FFF; font-size: 1.2rem; cursor: pointer; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; padding: 0; }
+[dir="rtl"] .rg__fs { right: auto; left: 16px; }
+.rg__fs:hover { background: rgba(0,0,0,0.8); }
+.rg__thumbs { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; }
+.rg-thumb { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer; opacity: 0.5; border: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s; flex-shrink: 0; }
+.rg-thumb:hover { opacity: 0.8; }
+.rg-thumb--active { opacity: 1; border-color: var(--gold-primary); }
+.rg:fullscreen .rg__main { aspect-ratio: auto; max-height: none; height: 90vh; border-radius: 0; }
+.rg:fullscreen { padding: 20px; background: #000; }
+.rg:-webkit-full-screen .rg__main { aspect-ratio: auto; max-height: none; height: 90vh; border-radius: 0; }
+.rg:-webkit-full-screen { padding: 20px; background: #000; }
+
+@media (max-width: 768px) {
+  .rg__arrow { width: 36px; height: 36px; font-size: 1.5rem; }
+  .rg__arrow--prev { left: 8px; }
+  .rg__arrow--next { right: 8px; }
+  .rg__thumbs { gap: 6px; }
+  .rg-thumb { width: 60px; height: 45px; }
+}
+
+/* ==========================================================================
+   TOASTS & LIGHTBOX (إشعارات التأكيد المدمجة)
+   ========================================================================== */
+.toast { position: fixed; bottom: 30px; right: 30px; z-index: 10000; background: rgba(13,22,37,0.95); color: #FFF; border-left: 4px solid var(--gold-primary); padding: 14px 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); font-size: 0.88rem; backdrop-filter: blur(8px); animation: toastEntrance 0.4s ease forwards; }
+[dir="rtl"] .toast { right: auto; left: 30px; border-left: none; border-right: 4px solid var(--gold-primary); }
+@keyframes toastEntrance { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.lightbox { position: fixed; inset: 0; background: rgba(5,8,15,0.95); z-index: 11000; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity var(--transition-fast); pointer-events: none; }
+.lightbox--active { opacity: 1; pointer-events: auto; }
+.lightbox__img { max-width: 85%; max-height: 80%; border-radius: var(--radius-sm); }
+.lightbox__close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: #FFF; font-size: 1.8rem; cursor: pointer; }
+
+/* ==========================================================================
+   FOOTER STYLE
+   ========================================================================== */
+.footer { background: #03060B; border-top: 1px solid var(--border-color); padding: 48px 0 32px; color: var(--text-muted); font-size: 0.85rem; }
+[data-theme="light"] .footer { background: #FAF9F5; }
+.footer__inner { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.footer__links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.footer__link { color: var(--text-muted); text-decoration: none; }
+.footer__link:hover { color: var(--gold-primary); }
+
+/* ==========================================================================
+    RESPONSIVE DESIGN (التوافق مع الشاشات وهواتف الجوال)
+    ========================================================================== */
+@media (max-width: 1024px) {
+  .detail-layout { grid-template-columns: 1fr; gap: 32px; }
+  .booking-sidebar { position: static; }
+}
+
+@media (max-width: 768px) {
+  .header__hamburger { display: block; }
+  .header__nav { 
+    position: fixed; top: 80px; right: -100%; width: 280px; height: calc(100vh - 80px); 
+    background: var(--bg-card); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+    flex-direction: column; padding: 32px 20px; gap: 12px; transition: right var(--transition-smooth); align-items: flex-start;
+  }
+  [dir="rtl"] .header__nav { right: auto; left: -100%; transition: left var(--transition-smooth); }
+  .header__nav--active { right: 0; }
+  [dir="rtl"] .header__nav--active { left: 0; }
+  .nav__link { width: 100%; }
+  .nav__link::after { display: none; }
+  .room-card { flex-direction: column; }
+  .room-card__img { width: 100%; height: 180px; }
+  .section__header { flex-direction: column; align-items: flex-start; gap: 12px; }
+}

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: syria-travel-backend
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3000"
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://syria-travel.vercel.app
+      - key: API_URL
+        value: https://syria-travel-backend.onrender.com
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: DB_PATH
+        value: /var/data/data.sqlite
+      - key: DB_BACKUP_DIR
+        value: /var/data/backups
+      - key: LOG_LEVEL
+        value: combined
+    disk:
+      name: data
+      mountPath: /var/data
+      sizeGB: 1

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>النظام المركزي — Syria Travel</title>
+  <meta name="description" content="النظام المركزي لإدارة منصة Syria Travel.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="api-url" content="">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script>const t=localStorage.getItem('syria_theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('sa-theme-toggle');if(b)b.textContent=t==='dark'?'☀️':'🌙';});</script>
+</head>
+<body>
+  <header class="header header--static" role="banner">
+    <div class="header__inner container">
+      <a href="/" class="header__logo">
+        <span class="header__logo-icon">✦</span>
+        <span>Syria<span class="header__logo-accent">المركزي</span></span>
+      </a>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn--sm" id="sa-theme-toggle" onclick="toggleSATheme()" style="background:transparent;border:1px solid var(--gold-primary);color:var(--gold-primary);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:0.85rem;">☀️</button>
+        <a href="/admin" class="btn btn--secondary btn--sm">📋 لوحة الإدارة</a>
+        <a href="/" class="btn btn--secondary btn--sm">← الموقع العام</a>
+      </div>
+    </div>
+  </header>
+  <main id="app" class="main" style="padding-top:100px;"></main>
+  <script>
+  (function() {
+    var m = document.querySelector('meta[name="api-url"]');
+    var baseUrl = m ? m.getAttribute('content') : '';
+    var s = document.createElement('script');
+    s.src = baseUrl ? baseUrl + '/socket.io/socket.io.js' : '/socket.io/socket.io.js';
+    s.onload = function() {
+      var s2 = document.createElement('script');
+      s2.src = '/super-admin.js';
+      document.body.appendChild(s2);
+    };
+    s.onerror = function() {
+      var cdns = ['https://cdn.socket.io/4.8.1/socket.io.min.js'];
+      function tryCDN(i) {
+        if (i >= cdns.length) { var s2 = document.createElement('script'); s2.src = '/super-admin.js'; document.body.appendChild(s2); return; }
+        var c = document.createElement('script');
+        c.src = cdns[i];
+        c.onload = function() { var s2 = document.createElement('script'); s2.src = '/super-admin.js'; document.body.appendChild(s2); };
+        c.onerror = function() { tryCDN(i+1); };
+        document.head.appendChild(c);
+      }
+      tryCDN(0);
+    };
+    document.head.appendChild(s);
+  })();
+  </script>
+</body>
+</html>

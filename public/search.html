@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>بحث متقدم | Search</title><link rel="stylesheet" href="/style.css">
+<style>
+  body{direction:var(--direction, ltr);}
+  .search-container{max-width:1200px;margin:0 auto;padding:40px 20px;}
+  .search-header{text-align:center;margin-bottom:40px;}
+  .search-header h1{font-size:2.5rem;background:linear-gradient(135deg,var(--gold-primary),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .search-filters{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:30px;padding:24px;background:var(--glass-bg);border-radius:16px;border:1px solid var(--border-color);}
+  .search-filters label{font-size:0.85rem;color:var(--text-muted);margin-bottom:4px;display:block;}
+  .search-filters input,.search-filters select{padding:10px 14px;border-radius:8px;border:1px solid var(--border-color);background:var(--input-bg);color:var(--text-color);width:100%;}
+  .search-btn{background:linear-gradient(135deg,var(--gold-primary),#fbbf24);color:#000;border:none;padding:12px 32px;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.3s;}
+  .search-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(251,191,36,0.3);}
+  .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
+  .result-card{background:var(--glass-bg);border-radius:16px;overflow:hidden;border:1px solid var(--border-color);transition:all 0.3s;cursor:pointer;}
+  .result-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.15);}
+  .result-card img{width:100%;height:200px;object-fit:cover;}
+  .result-body{padding:16px;}
+  .result-body h3{margin:0 0 8px;color:var(--gold-primary);}
+  .result-body .meta{font-size:0.9rem;color:var(--text-muted);margin-bottom:6px;}
+  .result-body .price{font-size:1.2rem;font-weight:700;color:var(--text-color);}
+  .result-body .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;}
+  .badge-hotels{background:#3b82f6;color:#fff;}
+  .badge-tours{background:#10b981;color:#fff;}
+  .badge-cars{background:#f59e0b;color:#000;}
+  .no-results{text-align:center;padding:60px 20px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<div class="navbar" style="display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:var(--glass-bg);border-bottom:1px solid var(--border-color);">
+  <a href="/" style="color:var(--gold-primary);font-weight:700;font-size:1.2rem;">🏠</a>
+  <span id="search-lang-toggle" style="cursor:pointer;color:var(--text-muted);">🌐</span>
+</div>
+<div class="search-container">
+  <div class="search-header">
+    <h1 id="search-title">🔍 Advanced Search</h1>
+    <p id="search-sub" style="color:var(--text-muted);">Find hotels, tours, and car rentals</p>
+  </div>
+
+  <div class="search-filters">
+    <div><label id="l-keyword">🔎 Keyword</label><input type="text" id="filter-keyword" placeholder="Search..."></div>
+    <div><label id="l-type">📂 Type</label><select id="filter-type"><option value="all">All</option><option value="hotels">Hotels</option><option value="tours">Tours</option><option value="cars">Cars</option></select></div>
+    <div><label id="l-city">📍 City</label><input type="text" id="filter-city" placeholder="City..."></div>
+    <div><label id="l-min">💰 Min Price</label><input type="number" id="filter-min" placeholder="$0"></div>
+    <div><label id="l-max">💰 Max Price</label><input type="number" id="filter-max" placeholder="$9999"></div>
+    <div style="display:flex;align-items:flex-end;"><button class="search-btn" id="search-btn" onclick="doSearch()">🔍 Search</button></div>
+  </div>
+
+  <div id="search-results"></div>
+</div>
+
+<script>
+const LANG_KEY = 'syria_lang';
+let currentLang = localStorage.getItem(LANG_KEY) || 'en';
+
+const translations = {
+  en: {
+    title: '🔍 Advanced Search', sub: 'Find hotels, tours, and car rentals',
+    l_keyword: '🔎 Keyword', l_type: '📂 Type', l_city: '📍 City', l_min: '💰 Min Price', l_max: '💰 Max Price',
+    btn: '🔍 Search', opt_all: 'All', opt_hotels: 'Hotels', opt_tours: 'Tours', opt_cars: 'Cars',
+    no_results: 'No results found. Try different search terms.',
+    price: 'Price', from: 'From', per_night: '/night', per_day: '/day', per_person: '/person',
+    rating: 'Rating', duration: 'Duration', seats: 'Seats', model: 'Model'
+  },
+  ar: {
+    title: '🔍 بحث متقدم', sub: 'ابحث عن فنادق، جولات، واستئجار سيارات',
+    l_keyword: '🔎 كلمة البحث', l_type: '📂 النوع', l_city: '📍 المدينة', l_min: '💰 أقل سعر', l_max: '💰 أعلى سعر',
+    btn: '🔍 بحث', opt_all: 'الكل', opt_hotels: 'فنادق', opt_tours: 'جولات', opt_cars: 'سيارات',
+    no_results: 'لا توجد نتائج. جرب كلمات بحث مختلفة.',
+    price: 'السعر', from: 'من', per_night: '/ليلة', per_day: '/يوم', per_person: '/شخص',
+    rating: 'التقييم', duration: 'المدة', seats: 'مقاعد', model: 'الموديل'
+  }
+};
+
+function t(key) { return translations[currentLang]?.[key] || translations.en[key] || key; }
+
+function applyLang() {
+  document.documentElement.lang = currentLang;
+  const isAr = currentLang === 'ar';
+  document.direction = isAr ? 'rtl' : 'ltr';
+  document.body.style.direction = isAr ? 'rtl' : 'ltr';
+  document.getElementById('search-title').textContent = t('title');
+  document.getElementById('search-sub').textContent = t('sub');
+  document.getElementById('l-keyword').textContent = t('l_keyword');
+  document.getElementById('l-type').textContent = t('l_type');
+  document.getElementById('l-city').textContent = t('l_city');
+  document.getElementById('l-min').textContent = t('l_min');
+  document.getElementById('l-max').textContent = t('l_max');
+  document.getElementById('search-btn').textContent = t('btn');
+  document.getElementById('filter-keyword').placeholder = t('l_keyword').replace(/^[^\s]+\s/,'');
+  const sel = document.getElementById('filter-type');
+  sel.options[0].text = t('opt_all');
+  sel.options[1].text = t('opt_hotels');
+  sel.options[2].text = t('opt_tours');
+  sel.options[3].text = t('opt_cars');
+  document.getElementById('search-lang-toggle').textContent = isAr ? '🇺🇸 English' : '🇸🇦 العربية';
+}
+
+document.getElementById('search-lang-toggle').onclick = () => {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  localStorage.setItem(LANG_KEY, currentLang);
+  applyLang();
+};
+
+async function doSearch() {
+  const q = document.getElementById('filter-keyword').value;
+  const type = document.getElementById('filter-type').value;
+  const city = document.getElementById('filter-city').value;
+  const min_price = document.getElementById('filter-min').value;
+  const max_price = document.getElementById('filter-max').value;
+  const params = new URLSearchParams();
+  if (q) params.set('q', q);
+  if (type && type !== 'all') params.set('type', type);
+  if (city) params.set('city', city);
+  if (min_price) params.set('min_price', min_price);
+  if (max_price) params.set('max_price', max_price);
+  const container = document.getElementById('search-results');
+  container.innerHTML = '<p style="text-align:center;color:var(--text-muted);">⏳ ' + (currentLang === 'ar' ? 'جاري البحث...' : 'Searching...') + '</p>';
+  try {
+    const resp = await fetch('/api/search?' + params.toString());
+    const data = await resp.json();
+    if (!data.results || data.results.length === 0) {
+      container.innerHTML = '<div class="no-results">😕 ' + t('no_results') + '</div>';
+      return;
+    }
+    container.innerHTML = '<div class="results-grid">' + data.results.map(item => {
+      const img = item.main_image || '/uploads/default.jpg';
+      const link = item.item_type === 'hotel' ? '/#hotels' : (item.item_type === 'tour' ? '/#tours' : '/#cars');
+      let badge = item.item_type === 'hotel' ? 'badge-hotels' : (item.item_type === 'tour' ? 'badge-tours' : 'badge-cars');
+      let priceHtml = '';
+      let extra = '';
+      if (item.item_type === 'hotel') {
+        priceHtml = item.min_price ? '$' + item.min_price + ' - $' + item.max_price + ' ' + t('per_night') : '';
+        extra = item.rating ? '<span class="meta">⭐ ' + item.rating + '/5</span>' : '';
+      } else if (item.item_type === 'tour') {
+        priceHtml = item.price ? '$' + item.price + ' ' + t('per_person') : '';
+        extra = (item.duration ? '<span class="meta">🕐 ' + item.duration + '</span>' : '') + (item.rating ? ' | ⭐ ' + item.rating + '/5' : '');
+      } else {
+        priceHtml = item.price_per_day ? '$' + item.price_per_day + ' ' + t('per_day') : '';
+        extra = (item.seats ? '<span class="meta">👥 ' + item.seats + ' ' + t('seats') + '</span>' : '') + (item.model ? ' | 🚗 ' + item.model : '');
+      }
+      const name = currentLang === 'ar' && item.name_ar ? item.name_ar : item.name;
+      const cityName = currentLang === 'ar' && item.city_ar ? item.city_ar : item.city;
+      return `<div class="result-card" onclick="window.location.href='${link}'">
+        <img src="${img}" alt="${name}" onerror="this.src='/uploads/default.jpg'">
+        <div class="result-body">
+          <span class="badge ${badge}">${item.item_type}</span>
+          <h3>${name}</h3>
+          <div class="meta">📍 ${cityName || ''}</div>
+          ${extra}
+          <div class="price">${priceHtml}</div>
+        </div></div>`;
+    }).join('') + '</div>';
+  } catch (err) {
+    container.innerHTML = '<div class="no-results">❌ ' + err.message + '</div>';
+  }
+}
+
+// Enter key triggers search
+document.querySelectorAll('.search-filters input').forEach(el => {
+  el.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+});
+
+applyLang();
+doSearch();
+</script>
+</body>
+</html>

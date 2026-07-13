@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Database
+data.sqlite
+data.sqlite-wal
+data.sqlite-shm
+
+# Backups
+backups/
+*.backup
+
+# Uploads
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+startup.log
+startup.err
+stderr.log
+stdout.log
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Runtime
+.pm2/
+pm2-*.log
+
+# Scripts (one-time use)
+scripts/
+
+# Temp
+tmp/
+temp/

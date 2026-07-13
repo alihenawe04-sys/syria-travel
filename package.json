@@ -1,0 +1,40 @@
+{
+  "name": "syria-travel",
+  "version": "3.0.0",
+  "description": "Syria Travel — Enterprise International Travel Booking Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "pm2": "npx pm2 start ecosystem.config.js",
+    "pm2:stop": "npx pm2 stop syria-travel",
+    "pm2:restart": "npx pm2 restart syria-travel",
+    "pm2:logs": "npx pm2 logs syria-travel",
+    "pm2:save": "npx pm2 save",
+    "pm2:startup": "npx pm2 startup",
+    "lint": "node -c server.js && node -c config.js && node -c db.js",
+    "postinstall": "node -e \"const fs=require('fs');const dir='public/uploads';if(!fs.existsSync(dir))fs.mkdirSync(dir,{recursive:true});\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.3.0",
+    "isomorphic-git": "^1.38.7",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.11.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.11",
+    "pdfkit": "^0.19.1",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "sql.js": "^1.9.0",
+    "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
