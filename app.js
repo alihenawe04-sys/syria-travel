@@ -52,7 +52,7 @@ const TR = {
     inquirySubject: 'Subject', inquiryMessage: 'Message', yourEmail: 'Email',
     privacyPolicy: 'Privacy Policy', termsConditions: 'Terms & Conditions',
     cancellationPolicy: 'Cancellation Policy', refundPolicy: 'Refund Policy',
-    allRightsReserved: 'All Rights Reserved.', poweredBy: 'Powered by Syria Travel',
+    allRightsReserved: 'All Rights Reserved.', poweredBy: 'Powered by Syrian Golden Gate',
     whatsappNum: '963951564210',
     compareTitle: 'Compare', addToFavorites: 'Add to Favorites',
     removeFavorites: 'Remove from Favorites', bookSuccess: 'Thank you! Your booking request has been sent.',

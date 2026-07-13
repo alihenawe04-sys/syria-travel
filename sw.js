@@ -4,7 +4,7 @@ self.addEventListener('activate', (e) => e.waitUntil(clients.claim()));
 self.addEventListener('push', (e) => {
   try {
     const data = e.data ? e.data.json() : {};
-    const title = data.title || 'Syria Travel Admin';
+    const title = data.title || 'Syrian Golden Gate Admin';
     const opts = {
       body: data.message || '',
       icon: '/favicon.ico',
@@ -14,7 +14,7 @@ self.addEventListener('push', (e) => {
     };
     e.waitUntil(self.registration.showNotification(title, opts));
   } catch {
-    e.waitUntil(self.registration.showNotification('Syria Travel Admin', { body: e.data ? e.data.text() : '' }));
+    e.waitUntil(self.registration.showNotification('Syrian Golden Gate Admin', { body: e.data ? e.data.text() : '' }));
   }
 });
 
@@ -30,7 +30,7 @@ self.addEventListener('notificationclick', (e) => {
 // Show notification from page (for background tabs)
 self.addEventListener('message', (e) => {
   if (e.data && e.data.type === 'show-notification') {
-    self.registration.showNotification(e.data.title || 'Syria Travel Admin', {
+    self.registration.showNotification(e.data.title || 'Syrian Golden Gate Admin', {
       body: e.data.message || '',
       icon: '/favicon.ico',
       tag: e.data.tag || 'admin-notif'
