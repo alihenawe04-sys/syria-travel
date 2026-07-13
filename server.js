@@ -231,7 +231,7 @@ app.use(express.static(path.join(__dirname), {
   maxAge: isProd ? '1d' : 0,
   etag: false,
 }));
-app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads'), {
+app.use('/uploads', express.static(config.upload.dir, {
   maxAge: isProd ? '30d' : 0,
 }));
 
