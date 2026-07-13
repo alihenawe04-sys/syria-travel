@@ -114,7 +114,7 @@ body {
 
 .header__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
 .header__logo { display: flex; align-items: center; text-decoration: none; }
-.header__logo-img { height: 50px; width: auto; max-width: 200px; object-fit: contain; }
+.header__logo-img { height: 65px; width: auto; max-width: 220px; object-fit: contain; border-radius: 4px; }
 
 .header__nav { display: flex; align-items: center; gap: 8px; }
 .nav__link { 
