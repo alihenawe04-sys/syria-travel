@@ -15,9 +15,9 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: CORS_ORIGIN
-        value: https://syria-travel.vercel.app
+        value: "*"
       - key: API_URL
-        value: https://syria-travel-backend.onrender.com
+        value: ""
       - key: UPLOAD_DIR
         value: /var/data/uploads
       - key: DB_PATH
