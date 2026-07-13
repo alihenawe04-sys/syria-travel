@@ -330,13 +330,15 @@ function route() {
 
 function renderHome() {
   updateSEO(t('heroTitle'), t('heroSubtitle'));
+  const isMobile = window.innerWidth <= 768;
+  const folder = isMobile ? '/mop' : '/lap';
+  const heroImages = isMobile
+    ? ['1.png', 'download.png', '1783955261029.png', 'mixboard-image (18).png']
+    : ['2.png', 'mixboard-image (17).png', 'mixboard-image (19).png', 'mixboard-image (23).png'];
   document.getElementById('app').innerHTML = `
     <section class="hero">
       <div class="hero__slides" id="hero-slides">
-        <div class="hero__slide" style="background-image:url('/uploads/1781019692396-7kc63h.jpg')"></div>
-        <div class="hero__slide" style="background-image:url('/uploads/1781019587201-ini4h.jpg')"></div>
-        <div class="hero__slide" style="background-image:url('/uploads/1781019485083-h2vl7o.webp')"></div>
-        <div class="hero__slide" style="background-image:url('/uploads/1781019461281-i2lvnn.jpg')"></div>
+        ${heroImages.map(img => `<div class="hero__slide" style="background-image:url('${folder}/${img}')"></div>`).join('')}
       </div>
       <div class="hero__overlay"></div>
       <div class="hero__content container" style="text-align:center;">
