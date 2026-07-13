@@ -19,11 +19,11 @@ services:
       - key: API_URL
         value: ""
       - key: UPLOAD_DIR
-        value: /var/data/uploads
+        value: public/uploads
       - key: DB_PATH
-        value: /var/data/data.sqlite
+        value: data.sqlite
       - key: DB_BACKUP_DIR
-        value: /var/data/backups
+        value: backups
       - key: LOG_LEVEL
         value: combined
     disk:
