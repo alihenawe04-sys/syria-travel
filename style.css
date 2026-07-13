@@ -113,8 +113,8 @@ body {
 [data-theme="light"] .header--shrink { background: rgba(249, 247, 242, 0.98); }
 
 .header__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-.header__logo { display: flex; flex-direction: column; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--gold-primary); }
-.header__logo-accent { color: var(--text-main); font-weight: 300; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+.header__logo { display: flex; align-items: center; text-decoration: none; }
+.header__logo-img { height: 50px; width: auto; max-width: 200px; object-fit: contain; }
 
 .header__nav { display: flex; align-items: center; gap: 8px; }
 .nav__link { 
