@@ -169,11 +169,15 @@ body {
 }
 .hero__overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,8,15,0.4) 0%, rgba(5,8,15,0.7) 60%, rgba(5,8,15,1) 100%); z-index: 2; }
 [data-theme="light"] .hero__overlay { background: linear-gradient(to bottom, rgba(249,247,242,0.3) 0%, rgba(249,247,242,0.6) 60%, rgba(249,247,242,1) 100%); }
-.scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; animation: scrollBounce 2s ease-in-out infinite; opacity: 0.7; transition: opacity var(--transition-fast); }
+.scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; opacity: 0.8; transition: opacity var(--transition-fast); }
 .scroll-indicator:hover { opacity: 1; }
-.scroll-indicator__text { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-primary); }
-.scroll-indicator__arrow { font-size: 1.5rem; color: var(--gold-primary); line-height: 1; }
-@keyframes scrollBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+.scroll-indicator__mouse { width: 26px; height: 40px; border: 2px solid var(--gold-primary); border-radius: 14px; display: flex; justify-content: center; padding-top: 8px; animation: scrollMouse 2s ease-in-out infinite; }
+.scroll-indicator__wheel { width: 3px; height: 8px; background: var(--gold-primary); border-radius: 2px; animation: scrollWheel 2s ease-in-out infinite; }
+.scroll-indicator__text { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-primary); font-weight: 500; }
+.scroll-indicator__arrow { font-size: 0.8rem; color: var(--gold-primary); line-height: 1; opacity: 0.6; animation: scrollArrow 2s ease-in-out infinite; }
+@keyframes scrollMouse { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+@keyframes scrollWheel { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(8px); } }
+@keyframes scrollArrow { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
 .hero__content { position: relative; z-index: 3; text-align: center; max-width: 950px; padding: 80px 24px 40px; }
 .hero__title { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 800; color: var(--gold-primary); line-height: 1.15; margin-bottom: 24px; text-shadow: 0 4px 20px rgba(0,0,0,0.6); }
@@ -439,6 +443,8 @@ select option { background: var(--luxury-navy); color: var(--text-main); }
   .hero-login__select-cc { width: 100%; padding: 8px 10px; font-size: 0.8rem; }
   .hero-login__options { margin: 12px 0 16px; font-size: 0.75rem; flex-direction: column; gap: 8px; align-items: flex-start; }
   .scroll-indicator { bottom: 10px; }
-  .scroll-indicator__text { font-size: 0.5rem; letter-spacing: 1px; }
-  .scroll-indicator__arrow { font-size: 1rem; }
+  .scroll-indicator__mouse { width: 18px; height: 28px; padding-top: 5px; border-width: 1.5px; }
+  .scroll-indicator__wheel { width: 2px; height: 6px; }
+  .scroll-indicator__text { font-size: 0.45rem; letter-spacing: 1px; }
+  .scroll-indicator__arrow { font-size: 0.6rem; }
 }
